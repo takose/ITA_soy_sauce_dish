@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="width: 100%;">
 <!--
 
 == OpenJSCAD.org, Copyright (c) 2016-2017, Licensed under MIT License ==
@@ -13,22 +13,38 @@ Purpose:
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <title>OpenJSCAD.org Logo</title>
   <link rel="stylesheet" href="min.css" type="text/css">
-  <script>
-    var img = new Image();    //画像オブジェクト作成
-    img.src = "gradation.png";  //写真のパスを指定する
-  </script>
 </head>
 
-<body onload="draw1()">
-  <canvas id="orange_byouga" width="60" height="60" style="width: 60px; height: 60px;"></canvas>
+<body onload="draw1('inu.png');" style="width: 100%;">
+  <!-- inputはドラック＆ドロップ対応してるらしい -->
+  <input type="file" id="makesoyimg" style="position: absolute; top: 0px; left: 0px; width: 500px; height: 500px;">
+  <canvas id="img_byouga" width="60" height="60" style="width: 60px; height: 60px;"></canvas>
   <script>
     let syouyu_image;
     let syouyu_canvas;
-    function draw1() {
-      var ctx = document.getElementById("orange_byouga").getContext("2d");
-      ctx.drawImage(img, 0, 0, 60, 60);
-      syouyu_canvas = document.getElementById("orange_byouga").getContext("2d");
-      syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+    let img = new Image();    //画像オブジェクト作成
+
+    function draw1(imgname) {
+
+      document.getElementById("makesoyimg").addEventListener("change", function (evt) {
+        img.src = evt.target.files[0].name;  //写真のパスを指定する
+        img.onload = function () {
+          var ctx = document.getElementById("img_byouga").getContext("2d");
+          ctx.drawImage(img, 0, 0, 60, 60);
+          syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
+          syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+          document.getElementById("updateButton").click();
+        }
+
+      }, false);
+
+      img.src = imgname;  //写真のパスを指定する
+      img.onload = function () {
+        var ctx = document.getElementById("img_byouga").getContext("2d");
+        ctx.drawImage(img, 0, 0, 60, 60);
+        syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
+        syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+      }
     }
   </script>
   <script src="dist/min.js"></script>

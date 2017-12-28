@@ -39938,7 +39938,7 @@ Processor.prototype = {
 
     let image_color = new Array();
     let image_down = 0.01;
-    let dansa = 3;
+    let dansa = 1;
     let seikika = (1/(255*1)).toFixed(4);
     for (var i = 0; i < syouyu_image.height; i++) {
       for (var j = 0; j < syouyu_image.width; j++) {
