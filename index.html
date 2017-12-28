@@ -15,7 +15,7 @@ Purpose:
   <link rel="stylesheet" href="min.css" type="text/css">
 </head>
 
-<body onload="draw1('inu.png');" style="width: 100%;">
+<body onload="draw1('./soyimgs/inu.png');" style="width: 100%;">
   <!-- inputはドラック＆ドロップ対応してるらしい -->
   <input type="file" id="makesoyimg" style="position: absolute; top: 0px; left: 0px; width: 500px; height: 500px;">
   <canvas id="img_byouga" width="60" height="60" style="width: 60px; height: 60px;"></canvas>
@@ -27,7 +27,7 @@ Purpose:
     function draw1(imgname) {
 
       document.getElementById("makesoyimg").addEventListener("change", function (evt) {
-        img.src = evt.target.files[0].name;  //写真のパスを指定する
+        img.src = "./soyimgs/" + evt.target.files[0].name;  //写真のパスを指定する
         img.onload = function () {
           var ctx = document.getElementById("img_byouga").getContext("2d");
           ctx.drawImage(img, 0, 0, 60, 60);
