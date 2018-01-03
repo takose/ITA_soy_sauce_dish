@@ -13,11 +13,28 @@ Purpose:
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <title>OpenJSCAD.org Logo</title>
   <link rel="stylesheet" href="min.css" type="text/css">
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity WebGL Player | soy_simu</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <script src="TemplateData/UnityProgress.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+  <script>
+    let openjscad_polygons;
+    function UnityAwake() {
+      gameInstance.SendMessage('make_stl', 'make_stl', openjscad_polygons);
+    }
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/soy_simu_temp.json", { onProgress: UnityProgress });
+    //gameInstance.SendMessage('make_stl', 'make_stl', 'MyString');
+    //gameInstance.SendMessage('make_stl', 'make_stl', '30,30,2.01,30,-30,2.01,-30,-30,2.01,');
+  </script>
+
 </head>
 
 <body onload="draw1('./soyimgs/inu.png');" style="width: 100%;">
   <!-- inputはドラック＆ドロップ対応してるらしい -->
-  <input type="file" id="makesoyimg" style="position: absolute; top: 0px; left: 0px; width: 500px; height: 500px;">
+  <input type="file" id="makesoyimg" style="position: absolute; top: 0px; left: 0px; width: 300px; height: 300px;">
   <canvas id="img_byouga" width="60" height="60" style="width: 60px; height: 60px;"></canvas>
   <script>
     let syouyu_image;
@@ -30,6 +47,7 @@ Purpose:
         img.src = "./soyimgs/" + evt.target.files[0].name;  //写真のパスを指定する
         img.onload = function () {
           var ctx = document.getElementById("img_byouga").getContext("2d");
+          ctx.clearRect(0, 0, 60, 60);
           ctx.drawImage(img, 0, 0, 60, 60);
           syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
           syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
@@ -63,6 +81,16 @@ Purpose:
       <div id="statusdiv"></div>
     </div>
   </div>
+
+  <div class="webgl-content">
+    <div id="gameContainer" style="width: 960px; height: 600px"></div>
+    <div class="footer">
+      <div class="webgl-logo"></div>
+      <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+      <div class="title">soy_simu</div>
+    </div>
+  </div>
+
 </body>
 
 </html>

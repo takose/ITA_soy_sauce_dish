@@ -39025,7 +39025,7 @@ var Blob = makeBlob();
 function convertToBlob(input) {
   var data = input.data,
       mimeType = input.mimeType;
-
+  
   var blob = new Blob(data, { type: mimeType });
   return blob;
 }
@@ -39723,6 +39723,20 @@ Processor.prototype = {
     }
 
     var objs = this.currentObjects.slice(startpoint, endpoint + 1);
+    //ponkotu
+    let polygons_str="";
+    for (let i = 0; i < objs.length; i++){
+      for (let j = 0; j < objs[i].polygons.length; j++){
+        for (let k = 0; k < objs[i].polygons[j].vertices.length; k++){
+          polygons_str += objs[i].polygons[j].vertices[k].pos.x + "," + objs[i].polygons[j].vertices[k].pos.y + "," + objs[i].polygons[j].vertices[k].pos.z + ",";
+        }
+      }      
+    }
+    openjscad_polygons = polygons_str.slice( 0, -1 ) ;    
+    //console.log(polygons_str);
+    //console.log(polygons_str.split(",").length);
+    //gameInstance.SendMessage('make_stl', 'make_stl',polygons_str);    
+    //gameInstance.SendMessage('make_stl', 'make_stl', '30,30,2.01,30,-30,2.01,-30,-30,2.01,');
     this.viewedObject = convertToSolid(objs); // enforce CSG to display
 
     if (this.viewer) {
@@ -39942,6 +39956,16 @@ Processor.prototype = {
     let seikika = (1/(255*1)).toFixed(4);
     for (var i = 0; i < syouyu_image.height; i++) {
       for (var j = 0; j < syouyu_image.width; j++) {
+        let red = syouyu_image.data[(i * syouyu_image.width + j) * 4 + 0];
+        let green = syouyu_image.data[(i * syouyu_image.width + j) * 4 + 1];
+        let blue = syouyu_image.data[(i * syouyu_image.width + j) * 4 + 2];
+        syouyu_image.data[(i * syouyu_image.width + j) * 4 + 0] = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+        syouyu_image.data[(i * syouyu_image.width + j) * 4 + 1] = red * 0.2126 + green * 0.7152 + blue * 0.0722;
+        syouyu_image.data[(i * syouyu_image.width + j) * 4 + 2] = red * 0.2126 + green * 0.7152 + blue * 0.0722;        
+      }
+    }    
+    for (var i = 0; i < syouyu_image.height; i++) {
+      for (var j = 0; j < syouyu_image.width; j++) {
         image_color[i * syouyu_image.width + j] = syouyu_image.data[(i * syouyu_image.width + j) * 4 + 0]*dansa;
         image_color[i * syouyu_image.width + j] = (image_color[i * syouyu_image.width + j]*seikika).toFixed(2);
         image_color[i * syouyu_image.width + j] *= 2;
@@ -40042,6 +40066,7 @@ Processor.prototype = {
       }
       this.downloadOutputFileLink.innerHTML = this.downloadLinkTextForCurrentObject();
       this.downloadOutputFileLink.setAttribute('download', downloadAttribute);
+      
       if (noData) {
         this.downloadOutputFileLink.setAttribute('target', '_blank');
       }
@@ -40055,6 +40080,7 @@ Processor.prototype = {
   },
 
   currentObjectsToBlob: function currentObjectsToBlob() {
+
     var startpoint = this.selectStartPoint;
     var endpoint = this.selectEndPoint;
     if (startpoint > endpoint) {
