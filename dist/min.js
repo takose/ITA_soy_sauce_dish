@@ -39724,20 +39724,32 @@ Processor.prototype = {
 
     var objs = this.currentObjects.slice(startpoint, endpoint + 1);
     //ponkotu
-    let polygons_str="";
+    alert("アップデート");
+    openjscad_polygons = new Array();
+    console.log(openjscad_polygons);
+    let count = 0;
     for (let i = 0; i < objs.length; i++){
       for (let j = 0; j < objs[i].polygons.length; j++){
         for (let k = 0; k < objs[i].polygons[j].vertices.length; k++){
-          polygons_str += objs[i].polygons[j].vertices[k].pos.x + "," + objs[i].polygons[j].vertices[k].pos.y + "," + objs[i].polygons[j].vertices[k].pos.z + ",";
+          //openjscad_polygons[count] = objs[i].polygons[j].vertices[k].pos.x + "," + objs[i].polygons[j].vertices[k].pos.y + "," + objs[i].polygons[j].vertices[k].pos.z + ",";
+          openjscad_polygons[count] = new Array();
+          openjscad_polygons[count][0] = objs[i].polygons[j].vertices[k].pos.x;
+          openjscad_polygons[count][1] = objs[i].polygons[j].vertices[k].pos.y;
+          openjscad_polygons[count][2] = objs[i].polygons[j].vertices[k].pos.z;          
+          count++;
         }
       }      
     }
-    openjscad_polygons = polygons_str.slice( 0, -1 ) ;    
+    count = 0;
+    //openjscad_polygons = polygons_str.slice( 0, -1 ) ;    
     //console.log(polygons_str);
     //console.log(polygons_str.split(",").length);
     //gameInstance.SendMessage('make_stl', 'make_stl',polygons_str);    
     //gameInstance.SendMessage('make_stl', 'make_stl', '30,30,2.01,30,-30,2.01,-30,-30,2.01,');
     this.viewedObject = convertToSolid(objs); // enforce CSG to display
+
+    console.log("頂点描画順番");
+    //console.log(this.viewedObject);
 
     if (this.viewer) {
       this.viewer.setCsg(this.viewedObject);
@@ -39846,6 +39858,7 @@ Processor.prototype = {
         this.setError(data);
       }
 
+      //ponkotu        
       this.statusspan.innerHTML = content;
     } else {
       log(data);
@@ -41086,6 +41099,25 @@ Viewer.prototype = {
     }
     this.state = 2; // showing, object
     this.onDraw();
+    //ponkotu
+    openjscad_kidou=true; 
+    if (unity_kidou && openjscad_kidou) {
+      alert("描画完了");
+      //console.log(openjscad_polygons.length);
+      //console.log(openjscad_polygons);
+      let polystr = "";
+      for (let i = 0; i < openjscad_polygons.length; i++) {
+        gameInstance.SendMessage('make_stl', 'pushpolygons', openjscad_polygons[i][0]);
+        gameInstance.SendMessage('make_stl', 'pushpolygons', openjscad_polygons[i][1]);
+        gameInstance.SendMessage('make_stl', 'pushpolygons', openjscad_polygons[i][2]);
+        polystr += openjscad_polygons[i][0] + "," + openjscad_polygons[i][1] + "," + openjscad_polygons[i][2] + ",";
+      }
+      //console.log(polystr);
+      gameInstance.SendMessage('make_stl', 'makepolygons');
+      openjscad_polygons = null;
+      openjscad_polygons = new Array();        
+      
+    }    
   },
 
   clear: function clear() {
@@ -41549,7 +41581,15 @@ var GL = function () {
 			}
 			for (var i = 0; i < this.vertices.length; i++) {
 				this.normals[i] = this.normals[i].unit().toArray();
-			}
+      }
+      //ponkotu
+      console.log("法線");
+      let housen_str = "";
+			for (var i = 0; i < this.vertices.length; i++) {
+        this.normals[i];     
+        housen_str += "new Vector3(" + this.normals[i] + "),";
+      }      
+      //console.log(housen_str);
 			this.compile();
 			return this;
 		},

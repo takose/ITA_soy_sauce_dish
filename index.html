@@ -21,10 +21,37 @@ Purpose:
   <script src="TemplateData/UnityProgress.js"></script>
   <script src="Build/UnityLoader.js"></script>
   <script>
-    let openjscad_polygons;
+    let unity_kidou = false;
+    let openjscad_kidou = false;
+    let openjscad_polygons = new Array();
     function UnityAwake() {
-      gameInstance.SendMessage('make_stl', 'make_stl', openjscad_polygons);
+      unity_kidou = true;
+      if (unity_kidou && openjscad_kidou) {
+        //console.log(openjscad_polygons.length);
+        //console.log(openjscad_polygons);
+        let polystr = "";
+        for (let i = 0; i < openjscad_polygons.length; i++) {
+          gameInstance.SendMessage('make_stl', 'pushpolygons', openjscad_polygons[i][0]);
+          gameInstance.SendMessage('make_stl', 'pushpolygons', openjscad_polygons[i][1]);
+          gameInstance.SendMessage('make_stl', 'pushpolygons', openjscad_polygons[i][2]);
+          polystr += openjscad_polygons[i][0] + "," + openjscad_polygons[i][1] + "," + openjscad_polygons[i][2] + ",";
+        }
+        //console.log(polystr);
+        gameInstance.SendMessage('make_stl', 'makepolygons');
+        openjscad_polygons = null;
+        openjscad_polygons = new Array();
+      }
+
+      /*
+      let polygonstr = "";
+      for (let i = 0; i < openjscad_polygons.length; i++) {
+        polygonstr += openjscad_polygons[i];
+      }
+      polygonstr = polygonstr.slice(0, -1);
+      gameInstance.SendMessage('make_stl', 'make_stl', polygonstr);      
+      */
     }
+
     var gameInstance = UnityLoader.instantiate("gameContainer", "Build/soy_simu_temp.json", { onProgress: UnityProgress });
     //gameInstance.SendMessage('make_stl', 'make_stl', 'MyString');
     //gameInstance.SendMessage('make_stl', 'make_stl', '30,30,2.01,30,-30,2.01,-30,-30,2.01,');
@@ -90,7 +117,6 @@ Purpose:
       <div class="title">soy_simu</div>
     </div>
   </div>
-
 </body>
 
 </html>
