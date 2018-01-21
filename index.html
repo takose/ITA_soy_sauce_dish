@@ -68,26 +68,26 @@ Purpose:
     let img = new Image();    //画像オブジェクト作成
 
     function draw1(imgname) {
-
-      document.getElementById("makesoyimg").addEventListener("change", function (evt) {
-        img.src = "./soyimgs/" + evt.target.files[0].name;  //写真のパスを指定する
-        img.onload = function () {
-          var ctx = document.getElementById("img_byouga").getContext("2d");
-          ctx.clearRect(0, 0, 60, 60);
-          ctx.drawImage(img, 0, 0, 60, 60);
-          syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
-          syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
-          document.getElementById("updateButton").click();
-        }
-
-      }, false);
-
       img.src = imgname;  //写真のパスを指定する
       img.onload = function () {
         var ctx = document.getElementById("img_byouga").getContext("2d");
         ctx.drawImage(img, 0, 0, 60, 60);
         syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
         syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+
+        document.getElementById("makesoyimg").addEventListener("change", function (evt) {
+          img.src = "./soyimgs/" + evt.target.files[0].name;  //写真のパスを指定する
+          img.onload = function () {
+            var ctx = document.getElementById("img_byouga").getContext("2d");
+            ctx.clearRect(0, 0, 60, 60);
+            ctx.drawImage(img, 0, 0, 60, 60);
+            syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
+            syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+            document.getElementById("updateButton").click();
+          }
+
+        }, false);
+
       }
     }
   </script>
