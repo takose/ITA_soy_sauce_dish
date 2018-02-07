@@ -29,9 +29,17 @@ section {
   height: 120px;
   width: 120px;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.select-photo input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 .plus {
-  font-size: 67px;
+  font-size: 10px;
   width: 100%;
   text-align: center;
   margin: 0;
