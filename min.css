@@ -21,6 +21,14 @@ section {
   justify-content: space-around;
   align-items: center;
 }
+.image-examples {
+  margin-bottom: 20px;
+}
+.image-examples button {
+  padding: 8px;
+  background: none;
+  margin-right: 12px;
+}
 .select-photo {
   margin: 8px;
   border-radius: 50%;
