@@ -59,7 +59,27 @@ Purpose:
 
 </head>
 
-<body onload="draw1('./soyimgs/inu.png');" style="width: 100%;">
+<body onload="draw1('./soyimgs/ringo.png');" style="width: 100%;">
+  <script>
+    let syouyu_image;
+    let syouyu_canvas;
+    let img = new Image();    //画像オブジェクト作成
+
+    function draw1(imgname) {
+      img = new Image();
+      img.src = imgname;  //写真のパスを指定する
+      img.onload = function () {
+        var ctx = document.getElementById("img_byouga").getContext("2d");
+        ctx.clearRect(0, 0, 60, 60);
+        ctx.drawImage(img, 0, 0, 60, 60);
+        syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
+        syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+        document.getElementById("updateButton").click();
+      }
+    }
+  </script>
+  <script src="dist/min.js"></script>
+
   <h1>ITA Soy Sauce Dish</h1>
   <section class="step-select">
     <!-- inputはドラック＆ドロップ対応してるらしい -->
@@ -68,12 +88,12 @@ Purpose:
     </h2>
     <h3>サンプル</h3>
     <div class="image-examples">
-      <button><img src="./soyimgs/duck.png" alt=""></button>
-      <button><img src="./soyimgs/gradation.png" alt=""></button>
-      <button><img src="./soyimgs/kao_min.png" alt=""></button>
-      <button><img src="./soyimgs/mikan.png" alt=""></button>
-      <button><img src="./soyimgs/ringo.png" alt=""></button>
-      <button><img src="./soyimgs/inu.png" alt=""></button>
+      <button onclick="draw1('./soyimgs/duck.png')" imgname="duck"      ><img src="./soyimgs/duck.png" alt=""></button>
+      <button onclick="draw1('./soyimgs/gradation.png')" imgname="gradation" ><img src="./soyimgs/gradation.png" alt=""></button>
+      <button onclick="updateImage('kao_min')" imgname="kao_min"   ><img src="./soyimgs/kao_min.png" alt=""></button>
+      <button onclick="updateImage('mikan')" imgname="mikan"     ><img src="./soyimgs/mikan.png" alt=""></button>
+      <button onclick="updateImage('ringo')" imgname="ringo"     ><img src="./soyimgs/ringo.png" alt=""></button>
+      <button onclick="updateImage('inu')" imgname="inu"       ><img src="./soyimgs/inu.png" alt=""></button>
     </div>
     <div class="select-photo-wrapper">
       <label class="select-photo" for="makesoyimg">
@@ -122,36 +142,6 @@ Purpose:
     </div>
   </div>
   <section>
-  <script>
-    let syouyu_image;
-    let syouyu_canvas;
-    let img = new Image();    //画像オブジェクト作成
-
-    function draw1(imgname) {
-      img.src = imgname;  //写真のパスを指定する
-      img.onload = function () {
-        var ctx = document.getElementById("img_byouga").getContext("2d");
-        ctx.drawImage(img, 0, 0, 60, 60);
-        syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
-        syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
-
-        document.getElementById("makesoyimg").addEventListener("change", function (evt) {
-          img.src = "./soyimgs/" + evt.target.files[0].name;  //写真のパスを指定する
-          img.onload = function () {
-            var ctx = document.getElementById("img_byouga").getContext("2d");
-            ctx.clearRect(0, 0, 60, 60);
-            ctx.drawImage(img, 0, 0, 60, 60);
-            syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
-            syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
-            document.getElementById("updateButton").click();
-          }
-
-        }, false);
-
-      }
-    }
-  </script>
-  <script src="dist/min.js"></script>
 </body>
 
 </html>
