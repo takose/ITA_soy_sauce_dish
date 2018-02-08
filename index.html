@@ -12,6 +12,7 @@ Purpose:
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <title>OpenJSCAD.org Logo</title>
+  <link rel="stylesheet" href="loaders.min.css" type="text/css">
   <link rel="stylesheet" href="min.css" type="text/css">
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -80,68 +81,80 @@ Purpose:
   </script>
   <script src="dist/min.js"></script>
 
-  <h1>ITA Soy Sauce Dish</h1>
-  <section class="step-select">
-    <!-- inputはドラック＆ドロップ対応してるらしい -->
-    <h2 class="step">
-      1. 写真を選択
-    </h2>
-    <h3>サンプル</h3>
-    <div class="image-examples">
-      <button onclick="draw1('./soyimgs/duck.png')" imgname="duck"      ><img src="./soyimgs/duck.png" alt=""></button>
-      <button onclick="draw1('./soyimgs/gradation.png')" imgname="gradation" ><img src="./soyimgs/gradation.png" alt=""></button>
-      <button onclick="updateImage('kao_min')" imgname="kao_min"   ><img src="./soyimgs/kao_min.png" alt=""></button>
-      <button onclick="updateImage('mikan')" imgname="mikan"     ><img src="./soyimgs/mikan.png" alt=""></button>
-      <button onclick="updateImage('ringo')" imgname="ringo"     ><img src="./soyimgs/ringo.png" alt=""></button>
-      <button onclick="updateImage('inu')" imgname="inu"       ><img src="./soyimgs/inu.png" alt=""></button>
-    </div>
-    <div class="select-photo-wrapper">
-      <label class="select-photo" for="makesoyimg">
-        <input type="file" id="makesoyimg" style="display:block;">
-        <p class="plus">
-          ここに画像を<br>ドラッグアンドドロップ
-        </p>
-      </label>
-      <div class="use-image">
-        <p>使用画像</p>
-        <canvas id="img_byouga" width="60" height="60" style="width: 60px; height: 60px;"></canvas>
-      </div>
-    </div>
-  </section>
+  <div class="container">
 
-  <!-- setup display of the errors as required by OpenJSCAD.js -->
-  <section class="fix-params">
-    <h2 class="step">
-      2. パラメータ調整
-    </h2>
-    <div class="jscad-container">
-      <div id="header">
-        <div id="errordiv">hello</div>
-      </div>
-      <div class="preview">
-        <!-- setup display of the viewer, i.e. canvas -->
-        <div oncontextmenu="return false;" id="viewerContext" design-url="syouyuzara.jscad"></div>
-        <!-- setup display of the status, as required by OpenJSCAD.js -->
-        <!-- set display: block to display this -->
-        <div id="tail" style="display: none;">
-          <div id="statusdiv"></div>
+    <h1>ITA Soy Sauce Dish</h1>
+    <section class="step-select">
+      <!-- inputはドラック＆ドロップ対応してるらしい -->
+      <h2 class="step">
+        1. 写真を選択
+      </h2>
+      <div class="select-photo-wrapper">
+        <div class="select-option">
+          <h3>サンプルから選択</h3>
+          <div class="image-examples">
+            <button onclick="draw1('./soyimgs/duck.png')" imgname="duck"      ><img src="./soyimgs/duck.png" alt=""></button>
+            <button onclick="draw1('./soyimgs/gradation.png')" imgname="gradation" ><img src="./soyimgs/gradation.png" alt=""></button>
+            <button onclick="draw1('./soyimgs/kao_min.png')" imgname="kao_min"   ><img src="./soyimgs/kao_min.png" alt=""></button>
+            <button onclick="draw1('./soyimgs/mikan.png')" imgname="mikan"     ><img src="./soyimgs/mikan.png" alt=""></button>
+            <button onclick="draw1('./soyimgs/ringo.png')" imgname="ringo"     ><img src="./soyimgs/ringo.png" alt=""></button>
+            <button onclick="draw1('./soyimgs/inu.png')" imgname="inu"       ><img src="./soyimgs/inu.png" alt=""></button>
+          </div>
+          <p>もしくは</p>
+          <h3>画像をアップロード</h3>
+          <label class="select-photo" for="makesoyimg">
+            <input type="file" id="makesoyimg" style="display:block;">
+            <p class="plus">
+              ここに画像を<br>ドラッグアンドドロップ
+            </p>
+          </label>
+        </div>
+        <div class="use-image">
+          <p>使用画像</p>
+          <canvas id="img_byouga" width="60" height="60" style="width: 60px; height: 60px;"></canvas>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="webgl-content">
-    <h2 class="step">
-      プレビュー
-    </h2>
-    <div id="gameContainer" style="width: 960px; height: 600px"></div>
-    <div class="footer">
-      <div class="webgl-logo"></div>
-      <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-      <div class="title">soy_simu</div>
+    <!-- setup display of the errors as required by OpenJSCAD.js -->
+    <section class="fix-params">
+      <h2 class="step">
+        2. パラメータ調整
+      </h2>
+      <div class="jscad-container">
+        <div id="header">
+          <div id="errordiv">hello</div>
+        </div>
+        <div class="loader-inner ball-pulse">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="preview">
+          <!-- setup display of the viewer, i.e. canvas -->
+          <div oncontextmenu="return false;" id="viewerContext" design-url="syouyuzara.jscad"></div>
+          <!-- setup display of the status, as required by OpenJSCAD.js -->
+          <!-- set display: block to display this -->
+          <div id="tail" style="display: none;">
+            <div id="statusdiv"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="webgl-content">
+      <h2 class="step">
+        プレビュー
+      </h2>
+      <div id="gameContainer" style="width: 960px; height: 600px"></div>
+      <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+        <div class="title">soy_simu</div>
+      </div>
     </div>
+    <section>
   </div>
-  <section>
 </body>
 
 </html>
