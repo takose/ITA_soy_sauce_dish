@@ -2,16 +2,84 @@
  * min.css for OpenJSCAD.org viewer
  */
 
+* {
+  box-sizing: border-box;
+  font-family: "Sawarabi Gothic";
+}
+p {
+  margin: 0;
+}
+body {
+  margin: 0;
+}
+section {
+  margin-bottom: 50px;
+}
+.container {
+  width: 60%;
+  margin: 0 auto;
+}
+.select-photo-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.image-examples {
+  margin-bottom: 20px;
+}
+.image-examples button {
+  padding: 8px;
+  background: none;
+  margin-right: 12px;
+  border-color: orange;
+  border-radius: 2px;
+}
+.select-photo {
+  margin: 8px;
+  border-radius: 50%;
+  background-color: rgb(174, 215, 216);
+  color: white;
+  height: 220px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.select-photo input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.plus {
+  font-size: 19px;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
 .jscad-container {
-  margin: 5px 15px 5px 5px; /* not inherited */
-  padding: 20px; /* not inherited */
-  color: Black;
+  padding: 0 20px; /* not inherited */
+  color: rgba(0, 0, 0, 0.8);
   font-weight: bold;
-  font-family: Helvetica, Arial, Sans;
-  border: thin solid black;
   min-width: 410px;
 }
-
+.preview {
+  display: flex;
+}
+.gameContainer {
+  width: 100%;
+}
+.use-image{
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ball-pulse > div {
+  width: 20px;
+  height: 20px;
+  background-color: #ccc;
+}
 #header {
   margin: 5px; /* not inherited */
 }
@@ -29,7 +97,7 @@
   bottom: 0px;
 }
 
-canvas { 
+canvas {
   margin: 0px; /* not inherited */
   border: 0px none gray; /* not inherited */
   padding: 0px; /* not inherited */
@@ -37,13 +105,12 @@ canvas {
   width: 100%;
   height: 100%;
 
-  cursor: move; 
+  cursor: move;
 }
 
 #parametersdiv {
   margin: 5px; /* not inherited */
-  border: thin solid rgb(200,200,200);
-  border-radius: 1em;     
+  border-radius: 2em;
   padding: 10px;
 
   background: white;
@@ -79,12 +146,19 @@ canvas {
   margin:  0px; /* not inherited */
   border:  0px none gray; /* not inherited */
   padding: 0px; /* not inherited */
+  height: 30px;
 }
-
-#parametersdiv input, #parametersdiv textarea, #parametersdiv select {
-  font-size: 0.9em;
-  background: #fea;
+#parametersdiv td:last-child input {
+  width: 40px;
+  margin-left: 10px;
+  text-align: center;
+}
+#parametersdiv input,
+#parametersdiv textarea,
+#parametersdiv select {
+  font-size: 1.2em;
   border: none;
+  border-bottom: solid 1px rgb(255, 78, 78);
 }
 
 #updateButton {
@@ -97,7 +171,7 @@ canvas {
   margin-left: 1em;
 }
 
-#tail { 
+#tail {
   margin: 5px; /* not inherited */
 }
 
