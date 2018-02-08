@@ -22,6 +22,7 @@ Purpose:
   <script src="TemplateData/UnityProgress.js"></script>
   <script src="Build/UnityLoader.js"></script>
   <script>
+
     let unity_kidou = false;
     let openjscad_kidou = false;
     let openjscad_polygons = new Array();
@@ -41,6 +42,7 @@ Purpose:
         gameInstance.SendMessage('make_stl', 'makepolygons');
         openjscad_polygons = null;
         openjscad_polygons = new Array();
+
       }
 
       /*
@@ -67,6 +69,49 @@ Purpose:
     let img = new Image();    //画像オブジェクト作成
 
     function draw1(imgname) {
+
+      var file = document.getElementById('makesoyimg');
+      var result = document.getElementById('result');
+
+      function loadLocalImage(e) {
+        // ファイル情報を取得
+        var fileData = e.target.files[0];
+
+        // 画像ファイル以外は処理を止める
+        if (!fileData.type.match('image.*')) {
+          alert('画像を選択してください');
+          return;
+        }
+
+        // FileReaderオブジェクトを使ってファイル読み込み
+        var reader = new FileReader();
+        // ファイル読み込みに成功したときの処理
+        reader.onload = function () {
+          // ブラウザ上に画像を表示する
+          /*
+          var img = document.createElement('img');
+          img.src = reader.result;
+          result.appendChild(img);
+          */
+
+          img = new Image();
+          img.src = reader.result;  //写真のパスを指定する
+          img.onload = function () {
+            var ctx = document.getElementById("img_byouga").getContext("2d");
+            ctx.clearRect(0, 0, 60, 60);
+            ctx.drawImage(img, 0, 0, 60, 60);
+            syouyu_canvas = document.getElementById("img_byouga").getContext("2d");
+            syouyu_image = syouyu_canvas.getImageData(0, 0, 60, 60);
+            document.getElementById("updateButton").click();
+          }
+        }
+        // ファイル読み込みを実行
+        reader.readAsDataURL(fileData);
+      }
+
+      // ファイルが指定された時にloadLocalImage()を実行
+      file.addEventListener('change', loadLocalImage, false);
+
       img = new Image();
       img.src = imgname;  //写真のパスを指定する
       img.onload = function () {
@@ -82,7 +127,7 @@ Purpose:
   <script src="dist/min.js"></script>
 
   <div class="container">
-
+    <div id="result"></div>
     <h1>ITA Soy Sauce Dish</h1>
     <section class="step-select">
       <!-- inputはドラック＆ドロップ対応してるらしい -->
@@ -93,19 +138,32 @@ Purpose:
         <div class="select-option">
           <h3>サンプルから選択</h3>
           <div class="image-examples">
-            <button onclick="draw1('./soyimgs/duck.png')" imgname="duck"      ><img src="./soyimgs/duck.png" alt=""></button>
-            <button onclick="draw1('./soyimgs/gradation.png')" imgname="gradation" ><img src="./soyimgs/gradation.png" alt=""></button>
-            <button onclick="draw1('./soyimgs/kao_min.png')" imgname="kao_min"   ><img src="./soyimgs/kao_min.png" alt=""></button>
-            <button onclick="draw1('./soyimgs/mikan.png')" imgname="mikan"     ><img src="./soyimgs/mikan.png" alt=""></button>
-            <button onclick="draw1('./soyimgs/ringo.png')" imgname="ringo"     ><img src="./soyimgs/ringo.png" alt=""></button>
-            <button onclick="draw1('./soyimgs/inu.png')" imgname="inu"       ><img src="./soyimgs/inu.png" alt=""></button>
+            <button onclick="draw1('./soyimgs/duck.png')" imgname="duck">
+              <img src="./soyimgs/duck.png" alt="">
+            </button>
+            <button onclick="draw1('./soyimgs/gradation.png')" imgname="gradation">
+              <img src="./soyimgs/gradation.png" alt="">
+            </button>
+            <button onclick="draw1('./soyimgs/kao_min.png')" imgname="kao_min">
+              <img src="./soyimgs/kao_min.png" alt="">
+            </button>
+            <button onclick="draw1('./soyimgs/mikan.png')" imgname="mikan">
+              <img src="./soyimgs/mikan.png" alt="">
+            </button>
+            <button onclick="draw1('./soyimgs/ringo.png')" imgname="ringo">
+              <img src="./soyimgs/ringo.png" alt="">
+            </button>
+            <button onclick="draw1('./soyimgs/inu.png')" imgname="inu">
+              <img src="./soyimgs/inu.png" alt="">
+            </button>
           </div>
           <p>もしくは</p>
           <h3>画像をアップロード</h3>
           <label class="select-photo" for="makesoyimg">
-            <input type="file" id="makesoyimg" style="display:block;">
+            <input type="file" id="makesoyimg" style="display:block; opacity:0.0;">
             <p class="plus">
-              ここに画像を<br>ドラッグアンドドロップ
+              ここに画像を
+              <br>ドラッグアンドドロップ
             </p>
           </label>
         </div>
@@ -122,9 +180,6 @@ Purpose:
         2. パラメータ調整
       </h2>
       <div class="jscad-container">
-        <div id="header">
-          <div id="errordiv">hello</div>
-        </div>
         <div class="loader-inner ball-pulse">
           <div></div>
           <div></div>
@@ -150,11 +205,10 @@ Purpose:
       <div class="footer">
         <div class="webgl-logo"></div>
         <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
-        <div class="title">soy_simu</div>
       </div>
-    </div>
-    <section>
   </div>
+  <section>
+    </div>
 </body>
 
 </html>
