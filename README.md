@@ -1,5 +1,1 @@
-# 1. カラー画像に対応させる
-# 2. Unityへの転送
-# 3. マウスで醤油皿を見れるようにする
-# 4. 醤油シミュレーション
-# 5. 邪魔なパラメータを整理
+[http://takose.me/ITA_soy_sauce_dish/](http://takose.me/ITA_soy_sauce_dish/)
