@@ -39724,7 +39724,8 @@ Processor.prototype = {
 
     var objs = this.currentObjects.slice(startpoint, endpoint + 1);
     //ponkotu
-    alert("アップデート");
+    //alert("アップデート");
+    document.getElementsByClassName("loader-inner")[0].style = "display: none;";
     openjscad_polygons = new Array();
     console.log(openjscad_polygons);
     let count = 0;
@@ -41102,7 +41103,7 @@ Viewer.prototype = {
     //ponkotu
     openjscad_kidou=true; 
     if (unity_kidou && openjscad_kidou) {
-      alert("描画完了");
+      //alert("描画完了");
       //console.log(openjscad_polygons.length);
       //console.log(openjscad_polygons);
       let polystr = "";
