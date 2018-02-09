@@ -64,6 +64,20 @@ Purpose:
 
 <body onload="draw1('./soyimgs/ringo.png');" style="width: 100%;">
   <script>
+    setInterval(function () {
+      document.getElementById("statusspan").style = "display: none;";
+      document.getElementsByTagName("select")[0].style = "display: none;";
+      let elms = document.getElementById("statusbuttons").children;
+      for (let i = 0; i < elms.length; i++) {
+        if (elms[i].nodeName == "BUTTON") {
+          //elms[i].innerHTML = "STL生成";
+          document.getElementsByClassName("footer")[0].appendChild(elms[i]);
+        }
+        document.getElementsByClassName("downloadOutputFileLink")[0].innerHTML = "ダウンロード";
+        document.getElementsByClassName("footer")[0].appendChild(document.getElementsByClassName("downloadOutputFileLink")[0]);
+      }
+    }, 1);
+
     let syouyu_image;
     let syouyu_canvas;
     let img = new Image();    //画像オブジェクト作成
@@ -184,7 +198,7 @@ Purpose:
           <div oncontextmenu="return false;" id="viewerContext" design-url="syouyuzara.jscad"></div>
           <!-- setup display of the status, as required by OpenJSCAD.js -->
           <!-- set display: block to display this -->
-          <div id="tail" style="display: none;">
+          <div id="tail" style="display: block;">
             <div id="statusdiv"></div>
           </div>
         </div>

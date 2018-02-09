@@ -55,7 +55,7 @@
      <Compile Include="Assets\WebGLInputFalse.cs" />
      <Compile Include="Assets\zoom.cs" />
  <Reference Include="Facebook.Unity.Settings">
- <HintPath>C:/xampp/htdocs/soy_simu/soy_simu/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
+ <HintPath>C:/xampp/htdocs/ITA_soy_sauce_dish/soy_simu/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
